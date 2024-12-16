@@ -4,9 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Strange Laws Around the World</title>
+    <title>Weird Laws Worldwide</title>
     <style>
-        /* [Previous styles remain the same until update-button] */
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #2a2a2a;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #3d3d3d;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(147, 0, 211, 0.3);
+        }
+
+        h1 {
+            color: #ff3366;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
 
         .refresh-button {
             background-color: #9932CC;
@@ -17,8 +40,8 @@
             font-size: 18px;
             cursor: pointer;
             margin: 20px auto;
-            transition: all 0.3s ease;
             display: block;
+            transition: all 0.3s ease;
         }
 
         .refresh-button:hover {
@@ -26,13 +49,83 @@
             transform: scale(1.05);
         }
 
-        /* [Rest of previous styles remain the same] */
+        .law-section {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #4a4a4a;
+            border-left: 5px solid #9932CC;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .law-section:hover {
+            transform: translateX(10px);
+            box-shadow: 0 0 15px rgba(147, 0, 211, 0.2);
+        }
+
+        .country-name {
+            color: #ff3366;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .law-text {
+            color: #e0e0e0;
+            line-height: 1.6;
+            font-size: 1.1em;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #3d3d3d;
+            padding: 30px;
+            border: 3px solid #ff3366;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(147, 0, 211, 0.5);
+            z-index: 1000;
+        }
+
+        .update-button {
+            background-color: #ff3366;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .update-button:hover {
+            background-color: #9932CC;
+            transform: scale(1.05);
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Bizarre Laws Around the World</h1>
-        <button class="refresh-button" onclick="displayRandomLaws()">Show Me New Laws!</button>
+        <h1>🌍 Strange Laws Around the World 📜</h1>
+        <button class="refresh-button" onclick="displayRandomLaws()">Show Me More Laws!</button>
         <div id="lawContainer"></div>
     </div>
 
@@ -43,7 +136,47 @@
     </div>
 
     <script>
-        // [Previous laws object and getRandomLaw function remain the same]
+        const laws = {
+            'United States': [
+                "In Alabama, it's illegal to carry an ice cream cone in your back pocket.",
+                "In Rhode Island, it's illegal to sell toothpaste and a toothbrush to the same person on a Sunday.",
+                "In Nevada, it's illegal to drive a camel on the highway.",
+                "In Connecticut, a pickle must bounce to be considered a real pickle.",
+                "In Louisiana, it's illegal to tie an alligator to a fire hydrant."
+            ],
+            'Canada': [
+                "In Alberta, it's illegal to paint a wooden ladder.",
+                "In Petrolia, Ontario, it's illegal to whistle or sing while walking down the street.",
+                "In Montreal, it's illegal to swear in French.",
+                "In British Columbia, it's illegal to kill a Sasquatch.",
+                "In Prince Edward Island, it's illegal to build snowmen taller than 30 inches."
+            ],
+            'Japan': [
+                "It's illegal to be overweight according to the 'Metabo Law'.",
+                "It's illegal to take your trash out too early.",
+                "Dancing after midnight was illegal until 2015.",
+                "It's illegal to make clones of yourself.",
+                "It's illegal to remove your shoes while working in an office."
+            ],
+            'Russia': [
+                "It's illegal to drive a dirty car in Moscow.",
+                "It's illegal to share WiFi with your neighbors.",
+                "Taking selfies in certain locations is illegal.",
+                "It's illegal to tell children that Santa Claus isn't real.",
+                "It's illegal to sell cards with foreign words on them."
+            ],
+            'Australia': [
+                "It's illegal to possess more than 50kg of potatoes in Western Australia.",
+                "Only qualified electricians can change light bulbs in Victoria.",
+                "It's illegal to wear hot pink pants after midday on Sunday.",
+                "It's illegal to walk on the right-hand side of a footpath.",
+                "It's illegal to wear fluorescent clothing after dark."
+            ]
+        };
+
+        function getRandomLaw(countryLaws) {
+            return countryLaws[Math.floor(Math.random() * countryLaws.length)];
+        }
 
         function displayRandomLaws() {
             const container = document.getElementById('lawContainer');
@@ -51,16 +184,16 @@
 
             Object.keys(laws).forEach(country => {
                 const section = document.createElement('div');
-                section.className = 'country-section';
+                section.className = 'law-section';
                 section.innerHTML = `
-                    <div class="country-title">${country}</div>
-                    <div class="law-text">${getRandomLaw(laws[country])}</div>
+                    <div class="country-name">🏳️ ${country}</div>
+                    <div class="law-text">📜 ${getRandomLaw(laws[country])}</div>
                 `;
                 container.appendChild(section);
             });
         }
 
-        // Changed to 7 seconds (7000 milliseconds)
+        // Display popup after 7 seconds
         setTimeout(() => {
             document.getElementById('overlay').style.display = 'block';
             document.getElementById('popup').style.display = 'block';
